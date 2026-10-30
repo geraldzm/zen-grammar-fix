@@ -1,0 +1,49 @@
+{
+  "manifest_version": 3,
+  "name": "Zen Grammar Fix",
+  "version": "1.0.0",
+  "description": "Right-click selected text in an input to fix its grammar with Claude or Grok.",
+  "icons": {
+    "512": "icons/icon-512.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "all_frames": true,
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": [
+    "menus",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://api.anthropic.com/*",
+    "https://api.x.ai/*"
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "zen-grammar-fix@local",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": [
+          "websiteContent"
+        ]
+      }
+    }
+  }
+}

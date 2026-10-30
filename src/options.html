@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font: 14px/1.5 system-ui, sans-serif; padding: 12px; min-width: 360px; }
+    label { display: block; margin-bottom: 12px; }
+    input, select { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 4px; }
+    #status { margin-left: 8px; color: #2e7d32; }
+    #status.error { color: #b3261e; }
+    .note { color: #666; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <label>
+    Provider
+    <select id="provider">
+      <option value="anthropic">Claude (Haiku 5.5)</option>
+      <option value="xai">Grok (4.20 non-reasoning)</option>
+    </select>
+  </label>
+  <label>
+    Anthropic API key
+    <input id="anthropicApiKey" type="password" autocomplete="off" spellcheck="false">
+  </label>
+  <label>
+    xAI API key
+    <input id="xaiApiKey" type="password" autocomplete="off" spellcheck="false">
+  </label>
+  <p class="note">Keys are stored unencrypted in your browser profile and are only sent to the provider you choose.</p>
+  <button id="save">Save</button><span id="status"></span>
+  <script src="options.js"></script>
+</body>
+</html>
