@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.2.23",
   "scripts": {
     "build": "bun run scripts/build.ts",
     "typecheck": "tsc --noEmit",
-    "package": "bun run build && bunx web-ext@10.8.0 build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest"
+    "lint": "bun run build && bunx web-ext@10.8.0 lint --source-dir dist",
+    "package": "bun run build && bunx web-ext@10.8.0 build --source-dir dist --artifacts-dir web-ext-artifacts --overwrite-dest",
+    "package:source": "bun run scripts/package-source.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^4.0.93",
+    "@ai-sdk/openai": "^4.0.106",
     "@ai-sdk/xai": "^5.0.34",
     "ai": "^7.0.158"
   },

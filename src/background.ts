@@ -1,5 +1,6 @@
 import { APICallError, generateText, RetryError } from "ai";
 import { createAnthropic, type AnthropicLanguageModelOptions } from "@ai-sdk/anthropic";
+import { createOpenAI, type OpenAILanguageModelResponsesOptions } from "@ai-sdk/openai";
 import { createXai, type XaiLanguageModelResponsesOptions } from "@ai-sdk/xai";
 import { loadSettings, type Settings } from "./settings";
 import { MAX_INPUT_CHARS, type CaptureResponse, type ContentMessage } from "./messages";
@@ -41,7 +42,14 @@ function showError(tabId: number, frameId: number, text: string) {
 }
 
 function getApiKey(settings: Settings): string {
-  return settings.provider === "anthropic" ? settings.anthropicApiKey : settings.xaiApiKey;
+  switch (settings.provider) {
+    case "anthropic":
+      return settings.anthropicApiKey;
+    case "openai":
+      return settings.openaiApiKey;
+    case "xai":
+      return settings.xaiApiKey;
+  }
 }
 
 function callModel(settings: Settings, apiKey: string, text: string) {
@@ -65,6 +73,13 @@ function callModel(settings: Settings, apiKey: string, text: string) {
         })("claude-haiku-5-5"),
         /* Thinking would count against maxOutputTokens and isn't needed for proofreading */
         providerOptions: { anthropic: { thinking: { type: "disabled" } } satisfies AnthropicLanguageModelOptions },
+      });
+    case "openai":
+      return generateText({
+        ...options,
+        model: createOpenAI({ apiKey })("gpt-5.4-nano"),
+        /* Reasoning isn't needed for proofreading, and OpenAI keeps requests server-side unless told not to */
+        providerOptions: { openai: { reasoningEffort: "none", store: false } satisfies OpenAILanguageModelResponsesOptions },
       });
     case "xai":
       return generateText({

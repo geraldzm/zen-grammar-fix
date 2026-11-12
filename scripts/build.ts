@@ -9,6 +9,8 @@ const result = await Bun.build({
   target: "browser",
   format: "esm",
   minify: true,
+  /* Bun loads .env into process.env when running this script; never inline any of it into the bundle */
+  env: "disable",
 });
 
 if (!result.success) {

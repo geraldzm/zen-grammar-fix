@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Zen Grammar Fix",
   "version": "1.0.0",
-  "description": "Right-click selected text in an input to fix its grammar with Claude or Grok.",
+  "description": "Right-click selected text in an input to fix its grammar with Claude, GPT, or Grok.",
   "icons": {
     "512": "icons/icon-512.png"
   },
@@ -33,6 +33,7 @@
   ],
   "host_permissions": [
     "https://api.anthropic.com/*",
+    "https://api.openai.com/*",
     "https://api.x.ai/*"
   ],
   "browser_specific_settings": {

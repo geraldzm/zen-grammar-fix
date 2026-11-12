@@ -2,12 +2,14 @@ import { loadSettings, saveSettings, type Provider } from "./settings";
 
 const provider = document.getElementById("provider") as HTMLSelectElement;
 const anthropicApiKey = document.getElementById("anthropicApiKey") as HTMLInputElement;
+const openaiApiKey = document.getElementById("openaiApiKey") as HTMLInputElement;
 const xaiApiKey = document.getElementById("xaiApiKey") as HTMLInputElement;
 const status = document.getElementById("status") as HTMLSpanElement;
 
 loadSettings().then((settings) => {
   provider.value = settings.provider;
   anthropicApiKey.value = settings.anthropicApiKey;
+  openaiApiKey.value = settings.openaiApiKey;
   xaiApiKey.value = settings.xaiApiKey;
 });
 
@@ -21,8 +23,12 @@ function showStatus(text: string, isError = false) {
 }
 
 document.getElementById("save")!.addEventListener("click", async () => {
-  const keys = { anthropicApiKey: anthropicApiKey.value.trim(), xaiApiKey: xaiApiKey.value.trim() };
-  if (!KEY_PATTERN.test(keys.anthropicApiKey) || !KEY_PATTERN.test(keys.xaiApiKey)) {
+  const keys = {
+    anthropicApiKey: anthropicApiKey.value.trim(),
+    openaiApiKey: openaiApiKey.value.trim(),
+    xaiApiKey: xaiApiKey.value.trim(),
+  };
+  if (!Object.values(keys).every((key) => KEY_PATTERN.test(key))) {
     showStatus("API keys can't contain spaces, line breaks, or special characters.", true);
     return;
   }

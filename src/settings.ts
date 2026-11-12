@@ -1,14 +1,16 @@
-export type Provider = "anthropic" | "xai";
+export type Provider = "anthropic" | "openai" | "xai";
 
 export interface Settings {
   provider: Provider;
   anthropicApiKey: string;
+  openaiApiKey: string;
   xaiApiKey: string;
 }
 
 export const defaultSettings: Settings = {
   provider: "anthropic",
   anthropicApiKey: "",
+  openaiApiKey: "",
   xaiApiKey: "",
 };
 
